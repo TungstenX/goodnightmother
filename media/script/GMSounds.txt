@@ -1,0 +1,47 @@
+sound GMMommy {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = false,
+  clip { 
+    file = media/sound/GMMommy.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+
+sound GMMommyRing {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = false,
+  clip { 
+    file = media/sound/GMMommyRing.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+
+sound GMMommyAnswer {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = false,
+  clip { 
+    file = media/sound/GMMommyAnswer.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+
+sound GMMommyRadio {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMMommyRadio.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
