@@ -11,7 +11,7 @@ local function PlayerInit()
 	if player == PLAYER then
 		return --Already set
 	end
-	print('GM NEW PLAYER! ',player:getDisplayName());  -- debug
+	print('GM NEW PLAYER! ',tostring(player));  -- debug
 	PLAYER = player
 	PLAYER_BD = PLAYER:getBodyDamage();
 	PLAYER_STATS = PLAYER:getStats();
@@ -45,8 +45,8 @@ end
 -- - Wake up in other bed
 ---@param player IsoPlayer 
 function nightmareGenerator(player)
-  local allNightmareItems = { "Corpse", "Manniquin", "Naked", "Other", "Windows"}  
-  local nightmareItem = "Naked" -- allNightmareItems[(ZombRand(#allNightmareItems) + 1)]
+  local allNightmareItems = { "Corpse", "Manniquin", "Naked", "Other", "Windows", "None" }  
+  local nightmareItem = "NONE" -- allNightmareItems[(ZombRand(#allNightmareItems) + 1)]
   
   local x, y, z = player:getX(), player:getY(), player:getZ()
   x = x + ZombRand(-2, 3)
@@ -117,18 +117,12 @@ function nightmareGenerator(player)
   elseif nightmareItem == "Naked" then
     -- roomDef:getFreeSquare() ?? To get a place to put inventory?
     -- or roomDef:getIsoRoom():getRandomFreeSquare()
-    -- Checking:
-    -- print('SpawnPoints: ' .. SpawnPoints())
-    -- print('SpawnPoints[0]: ' .. SpawnPoints()[0])
-    -- print('SpawnPoints[0][0]: ' .. SpawnPoints()[0][0])
-    -- print('SpawnPoints[0][0][0]: ' .. SpawnPoints()[0][0][0])
     local container = player:getInventory()
     local currentSquare = getSquare(x,y,z) 
+    
+    player:dropHandItems()
     local items = container:getItems()
     print('GM Begin items count: ' .. items:size())
-    player:dropHandItems()
-    items = container:getItems()
-    print('GM Begin items count2: ' .. items:size())
     for i = 0, items:size() -1, 1
     do
       local item = items:get(i)
@@ -153,8 +147,10 @@ function nightmareGenerator(player)
       
       if item:isEquipped() then
         -- unequip
+        print('GM removeAttachedItem')
         player:removeAttachedItem(item)
       else
+        print('GM DoRemoveItem')
         player:getInventory():DoRemoveItem(item)
       end      
     end
