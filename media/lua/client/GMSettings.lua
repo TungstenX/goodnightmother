@@ -1,365 +1,183 @@
-require "OptionScreens"
+GM = GM or {}
+GM.Options = GM.Options or {}
 
-function GMGetOption(option)
-	if(GMOptions[option] ~= nil) then return tonumber(GMOptions[option])
-	else return 1 end
-end
+GM.Options.corpseEnabled = true
+GM.Options.corpseMeanness = 1
+GM.Options.devicesEnabled = true
+GM.Options.devicesMeanness = 0
+GM.Options.nakedEnabled = true
+GM.Options.nakedMeanness = 2
+GM.Options.nightNoisesEnabled = true
+GM.Options.nightNoisesMeanness = 0
+GM.Options.poltergeistsEnabled = true
+GM.Options.poltergeistsMeanness = 7
+GM.Options.scarecrowEnabled = true
+GM.Options.scarecrowMeanness = 5
+GM.Options.sleepWalkerEnabled = true
+GM.Options.sleepWalkerMeanness = 4
+GM.Options.insanityFactor = 5
 
- function GMSetOption(option,ToValue)
-	GMOptions[option] = ToValue
-	SaveGMOptions()
-end
+if ModOptions and ModOptions.getInstance then
+  local meannessValues = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }
 
- function SaveGMOptions()
-	local destFile = "GMOptions.lua"
-	local writeFile = getModFileWriter("SoundDirectionIndicator", destFile, true, false)
-	for index,value in pairs(GMOptions) do
-		writeFile:write(tostring(index) .. " " .. tostring(value) .. "\r\n");
-	end
-	writeFile:close();
-end
-
-local function LoadGMOptions( )
-	if(doesGMOptionsFileExist() == false) then 
-		print("could not load options file")
-		return nil 
-	end
-	local fileTable = {}
-	local readFile = getModFileReader("SoundDirectionIndicator","GMOptions.lua", true)
-	local scanLine = readFile:readLine()
-	while scanLine do
-	
-		local values = {}
-		for input in scanLine:gmatch("%S+") do table.insert(values,input) end
-		--print("loading line: "..values[1] .. " " .. values[2])
-		if(fileTable[values[1]] == nil) then fileTable[values[1]] = {} end
-			fileTable[values[1]]=tonumber(values[2])
-		scanLine = readFile:readLine()
-		if not scanLine then break end
-	end
-	readFile:close()
-	print("Loaded options file")
-	return fileTable
-end
-
-
-
-function doesGMOptionsFileExist(  )
-	local fileTable = {}
-	local readFile = getModFileReader("SoundDirectionIndicator","GMOptions.lua", false)
-	
-	if(readFile) then return true
-	else return false end
-end
-
-
-GMOptions = LoadGMOptions()
-
-
-local GameOption = ISBaseObject:derive("GameOption")
-
-function GameOption:new(name, control, arg1, arg2)
-	local o = {}
-	setmetatable(o, self)
-	self.__index = self
-	o.name = name
-	o.control = control
-	o.arg1 = arg1
-	o.arg2 = arg2
-	if control.isCombobox then
-		control.onChange = self.onChangeComboBox
-		control.target = o
-	end
-	if control.isTickBox then
-		control.changeOptionMethod = self.onChangeTickBox
-		control.changeOptionTarget = o
-	end
-	if control.isSlider then
-		control.targetFunc = self.onChangeVolumeControl
-		control.target = o
-	end
-	return o
-end
-
-
-function GameOption:toUI()
-	print('ERROR: option "'..self.name..'" missing toUI()')
-end
-
-
-function GameOption:apply()
-	print('ERROR: option "'..self.name..'" missing apply()')
-end
-
-function GameOption:onChangeComboBox(box)
-	self.gameOptions:onChange(self)
-	if self.onChange then
-		self:onChange(box)
-	end
-end
-
-
-function GameOption:onChangeTickBox(index, selected)
-	self.gameOptions:onChange(self)
-	if self.onChange then
-		self:onChange(index, selected)
-	end
-end
-
-
-function GameOption:onChangeVolumeControl(control, volume)
-	self.gameOptions:onChange(self)
-	if self.onChange then
-		self:onChange(control, volume)
-	end
-end
-
-
-    -- store the original MainOptions:create() method in a variable
-    local oldCreate = MainOptions.create
-
-    -- overwrite it
-    function MainOptions:create()
-        oldCreate(self)
+  local function onModOptionsApply(optionValues)
+    GM.Options.corpseEnabled = optionValues.settings.options.corpseEnabled
+    GM.Options.corpseMeanness = meannessValues[optionValues.settings.options.corpseMeanness]
+    
+    GM.Options.devicesEnabled = optionValues.settings.options.devicesEnabled
+    GM.Options.devicesMeanness = meannessValues[optionValues.settings.options.devicesMeanness]
+    
+    GM.Options.nakedEnabled = optionValues.settings.options.nakedEnabled
+    GM.Options.nakedMeanness = meannessValues[optionValues.settings.options.nakedMeanness]
+    
+    GM.Options.nightNoisesEnabled = optionValues.settings.options.nightNoisesEnabled
+    GM.Options.nightNoisesMeanness = meannessValues[optionValues.settings.options.nightNoisesMeanness]
+    
+    GM.Options.poltergeistsEnabled = optionValues.settings.options.nightNoisesEnabled
+    GM.Options.poltergeistsMeanness = meannessValues[optionValues.settings.options.nightNoisesMeanness]
         
-		
-		
-		----- options in Game Options -----
-		local spacing = 10
-		--self:lol()
-		self:addPage("VISUAL SOUNDS OPTIONS")
-		self.addY = 0
-		
-		local label
-		local y = 5
-		local comboWidth = 300
-		local splitpoint = self:getWidth() / 3;
-	
-		
-		local options = {"ON","OFF"}
-		local myCombo = self:addCombo(splitpoint, y, comboWidth, 20,"Activates visual indicators for World Sounds", options, 1)
-		myCombo:setToolTipMap({defaultTooltip = "Gives you Visual Indications of the direction of world sounds"});
-		
-		gameOption = GameOption:new('GMEnabled', myCombo)
-		
-		function gameOption.toUI(self)
-			local box = self.control
-			box.selected = GMGetOption("GMEnabled")
-		end
+    GM.Options.scarecrowEnabled = optionValues.settings.options.scarecrowEnabled
+    GM.Options.scarecrowMeanness = meannessValues[optionValues.settings.options.scarecrowMeanness]
+    
+    GM.Options.sleepWalkerEnabled = optionValues.settings.options.sleepWalkerEnabled
+    GM.Options.sleepWalkerMeanness = meannessValues[optionValues.settings.options.sleepWalkerMeanness]    
+    
+    GM.Options.insanityFactor = meannessValues[optionValues.settings.options.insanityFactor]    
+  end
 
-		function gameOption.apply(self)
-			local box = self.control
-			if box.options[box.selected] then
-				GMSetOption("GMEnabled",box.selected)
-				print("setting GMEnabled option")
-			else
-				print("error could not set GMEnabled option")
-			end
-		end
-		function gameOption:onChange(box)
-			print("GMEnabled option changed to ".. tostring(box.selected))
-		end
+  local SETTINGS = {
+    options_data = {
+      corpsEnabled = {
+        name = "UI_GM_Corpse_Enable",
+        tooltip = "UI_GM_Corpse_Enable_Tooltip",
+        default = true,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      }
+      corpsMeanness = {
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        name = "UI_GM_Corpse_Meanness",
+        tooltip = "UI_GM_Meanness_Tooltip",
+        default = 1,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      },
+      
+      devicesEnabled = {
+        name = "UI_GM_Devices_Enable",
+        tooltip = "UI_GM_Devices_Enable_Tooltip",
+        default = true,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      }
+      devicesMeanness = {
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        name = "UI_GM_Devices_Meanness",
+        tooltip = "UI_GM_Meanness_Tooltip",
+        default = 1,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      },
+            
+      nakedEnabled = {
+        name = "UI_GM_Naked_Enable",
+        tooltip = "UI_GM_Naked_Enable_Tooltip",
+        default = true,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      }
+      nakedMeanness = {
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        name = "UI_GM_Naked_Meanness",
+        tooltip = "UI_GM_Meanness_Tooltip",
+        default = 1,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      },
+      
+      nightNoisesEnabled = {
+        name = "UI_GM_NNoises_Enable",
+        tooltip = "UI_GM_NNoises_Enable_Tooltip",
+        default = true,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      }
+      nightNoisesMeanness = {
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        name = "UI_GM_NNoises_Meanness",
+        tooltip = "UI_GM_NNoises_Meanness_Tooltip",
+        default = 0,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      },
+      
+      poltergeistsEnabled = {
+        name = "UI_GM_Poltergeists_Enable",
+        tooltip = "UI_GM_Poltergeists_Enable_Tooltip",
+        default = true,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      }
+      poltergeistsMeanness = {
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        name = "UI_GM_Poltergeists_Meanness",
+        tooltip = "UI_GM_Meanness_Tooltip",
+        default = 7,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      },
+      
+      scarecrowEnabled = {
+        name = "UI_GM_Scarecrow_Enable",
+        tooltip = "UI_GM_Scarecrow_Enable_Tooltip",
+        default = true,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      }
+      scarecrowMeanness = {
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        name = "UI_GM_Scarecrow_Meanness",
+        tooltip = "UI_GM_Meanness_Tooltip",
+        default = 5,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      },
+      
+      sleepWalkerEnabled = {
+        name = "UI_GM_SleepWalker_Enable",
+        tooltip = "UI_GM_SleepWalker_Enable_Tooltip",
+        default = true,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      }
+      sleepWalkerMeanness = {
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        name = "UI_GM_SleepWalker_Meanness",
+        tooltip = "UI_GM_Meanness_Tooltip",
+        default = 4,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      },      
+      
+      insanityFactor = {
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        name = "UI_GM_Insanity_Factor",
+        tooltip = "UI_GM_Insanity_Factor_Tooltip",
+        default = 4,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      },
+    },
 
-		self.gameOptions:add(gameOption)
-		y = y + 10
+    mod_id = 'GoodnightMother',
+    mod_shortname = 'Goodnight Mother',
+    mod_fullname = 'Goodnight Mother',
+  }
 
+    local optionsInstance = ModOptions:getInstance(SETTINGS)
+    ModOptions:loadFile()
 
+    GM.init()
 
-
-		options = {"YES","NO"}
-		myCombo = self:addCombo(splitpoint, y, comboWidth, 20,"Ignore Generators sounds", options, 1)
-		myCombo:setToolTipMap({defaultTooltip = "Set to YES to have Visual indicators Ignore Generators"});
-		gameOption = GameOption:new('IGNOREGENS', myCombo)
-		function gameOption.toUI(self)
-			local box = self.control
-			box.selected = GMGetOption("IGNOREGENS")
-		end
-		function gameOption.apply(self)
-			local box = self.control
-			if box.options[box.selected] then
-				GMSetOption("IGNOREGENS",box.selected)
-				print("setting IGNOREGENS option")
-			else
-				print("error could not set IGNOREGENS option")
-			end
-		end
-		function gameOption:onChange(box)
-			print("IGNOREGENS option changed to ".. tostring(box.selected))
-		end
-		self.gameOptions:add(gameOption)
-		y = y + 20
-
-		-- Zombies TOGGLE
-		options = {"NO","YES"}
-		myCombo = self:addCombo(splitpoint, y, comboWidth, 20,"Ignore ZOMBIES sounds", options, 1)
-		myCombo:setToolTipMap({defaultTooltip = "Set to YES to have Visual indicators Ignore ZOMBIES"});
-		gameOption = GameOption:new('IGNOREZOMBIES', myCombo)
-		function gameOption.toUI(self)
-			local box = self.control
-			box.selected = GMGetOption("IGNOREZOMBIES")
-		end
-		function gameOption.apply(self)
-			local box = self.control
-			if box.options[box.selected] then
-				GMSetOption("IGNOREZOMBIES",box.selected)
-				print("setting IGNOREZOMBIES option")
-			else
-				print("error could not set IGNOREZOMBIES option")
-			end
-		end
-		function gameOption:onChange(box)
-			print("IGNOREZOMBIES option changed to ".. tostring(box.selected))
-		end
-		self.gameOptions:add(gameOption)
-		y = y + 10
-		
-		-- players TOGGLE
-		options = {"NO","YES"}
-		myCombo = self:addCombo(splitpoint, y, comboWidth, 20,"Ignore PLAYERS sounds", options, 1)
-		myCombo:setToolTipMap({defaultTooltip = "Set to YES to have Visual indicators Ignore PLAYERS"});
-		gameOption = GameOption:new('IGNOREZOMBIES', myCombo)
-		function gameOption.toUI(self)
-			local box = self.control
-			box.selected = GMGetOption("IGNOREPLAYERS")
-		end
-		function gameOption.apply(self)
-			local box = self.control
-			if box.options[box.selected] then
-				GMSetOption("IGNOREPLAYERS",box.selected)
-				print("setting IGNOREPLAYERS option")
-			else
-				print("error could not set IGNOREPLAYERS option")
-			end
-		end
-		function gameOption:onChange(box)
-			print("IGNOREPLAYERS option changed to ".. tostring(box.selected))
-		end
-		self.gameOptions:add(gameOption)		
-		y = y + 10
-
-			-- objects TOGGLE
-			options = {"NO","YES"}
-			myCombo = self:addCombo(splitpoint, y, comboWidth, 20,"Ignore Electric/electronic devices sounds", options, 1)
-			myCombo:setToolTipMap({defaultTooltip = "Set to YES to have Visual indicators Ignore Electronic devices"});
-			gameOption = GameOption:new('IGNOREOBJECTS', myCombo)
-			function gameOption.toUI(self)
-				local box = self.control
-				box.selected = GMGetOption("IGNOREOBJECTS")
-			end
-			function gameOption.apply(self)
-				local box = self.control
-				if box.options[box.selected] then
-					GMSetOption("IGNOREOBJECTS",box.selected)
-					print("setting IGNOREOBJECTS option")
-				else
-					print("error could not set IGNOREOBJECTS option")
-				end
-			end
-			function gameOption:onChange(box)
-				print("IGNOREOBJECTS option changed to ".. tostring(box.selected))
-			end
-			self.gameOptions:add(gameOption)		
-			y = y + 10
-
-			-- alerts TOGGLE
-			options = {"NO","YES"}
-			myCombo = self:addCombo(splitpoint, y, comboWidth, 20,"Ignore ALARMS sounds", options, 1)
-			myCombo:setToolTipMap({defaultTooltip = "Set to YES to have Visual indicators Ignore alarms"});
-			gameOption = GameOption:new('IGNOREALARMS', myCombo)
-			function gameOption.toUI(self)
-				local box = self.control
-				box.selected = GMGetOption("IGNOREALARMS")
-			end
-			function gameOption.apply(self)
-				local box = self.control
-				if box.options[box.selected] then
-					GMSetOption("IGNOREALARMS",box.selected)
-					print("setting IGNOREALARMS option")
-				else
-					print("error could not set IGNOREALARMS option")
-				end
-			end
-			function gameOption:onChange(box)
-				print("IGNOREALARMS option changed to ".. tostring(box.selected))
-			end
-			self.gameOptions:add(gameOption)		
-			y = y + 10
-
-			-- vehicles TOGGLE
-			options = {"NO","YES"}
-			myCombo = self:addCombo(splitpoint, y, comboWidth, 20,"Ignore VEHICLES sounds", options, 1)
-			myCombo:setToolTipMap({defaultTooltip = "Set to YES to have Visual indicators Ignore vehicles"});
-			gameOption = GameOption:new('IGNOREVEHICLES', myCombo)
-			function gameOption.toUI(self)
-				local box = self.control
-				box.selected = GMGetOption("IGNOREVEHICLES")
-			end
-			function gameOption.apply(self)
-				local box = self.control
-				if box.options[box.selected] then
-					GMSetOption("IGNOREVEHICLES",box.selected)
-					print("setting IGNOREVEHICLES option")
-				else
-					print("error could not set IGNOREVEHICLES option")
-				end
-			end
-			function gameOption:onChange(box)
-				print("IGNOREVEHICLES option changed to ".. tostring(box.selected))
-			end
-			self.gameOptions:add(gameOption)	
-			y = y + 10
-			
-			-- lambda TOGGLE
-			options = {"NO","YES"}
-			myCombo = self:addCombo(splitpoint, y, comboWidth, 20,"Ignore uncategorized sounds", options, 1)
-			myCombo:setToolTipMap({defaultTooltip = "Set to YES to have Visual indicators Ignore uncategorized sounds, like chopping wood, car crashes, rolling over mailboxes, ect..."});
-			gameOption = GameOption:new('IGNORELAMBDA', myCombo)
-			function gameOption.toUI(self)
-				local box = self.control
-				box.selected = GMGetOption("IGNORELAMBDA")
-			end
-			function gameOption.apply(self)
-				local box = self.control
-				if box.options[box.selected] then
-					GMSetOption("IGNORELAMBDA",box.selected)
-					print("setting IGNORELAMBDA option")
-				else
-					print("error could not set IGNORELAMBDA option")
-				end
-			end
-			function gameOption:onChange(box)
-				print("IGNORELAMBDA option changed to ".. tostring(box.selected))
-			end
-			self.gameOptions:add(gameOption)	
-			y = y + 40
-
-			-- Foraging gameplay option : 
-			options = {"NO","YES"}
-			myCombo = self:addCombo(splitpoint, y, comboWidth, 20,"HUNTER MODE: Indicators in search-mode only.", options, 1)
-			myCombo:setToolTipMap({defaultTooltip = "If set to YES, changes the gameplay and will display the indicators while in search mode ONLY."});
-			gameOption = GameOption:new('CONCENTRATION', myCombo)
-			function gameOption.toUI(self)
-				local box = self.control
-				box.selected = GMGetOption("CONCENTRATION")
-			end
-			function gameOption.apply(self)
-				local box = self.control
-				if box.options[box.selected] then
-					GMSetOption("CONCENTRATION",box.selected)
-					print("setting CONCENTRATION option")
-				else
-					print("error could not set CONCENTRATION option")
-				end
-			end
-			function gameOption:onChange(box)
-				print("CONCENTRATION option changed to ".. tostring(box.selected))
-			end
-			self.gameOptions:add(gameOption)	
-
-		
-		 self.addY = self.addY + MainOptions.translatorPane:getHeight()+22;
-
-		self.mainPanel:setScrollHeight(y + self.addY + 20)
-		
-		
-    end
+    Events.OnPreMapLoad.Add(function() onModOptionsApply({ settings = SETTINGS }) end)
+end

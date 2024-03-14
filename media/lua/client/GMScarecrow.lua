@@ -1,10 +1,9 @@
 -- TODO LIST
 -- Unspawn scarecrow after x amount of time?
 -- Effect when unspawning
+-- changes stats
 
-require "GMUtils"
-
-GMScarecrow = {}
+GMScarecrow = GMScarecrow or {}
 GMScarecrow.debug = false
 
 GMScarecrow.needScan = true
@@ -12,7 +11,8 @@ GMScarecrow.needOnSeeNewRoom = false
 GMScarecrow.needUpdate = true
 GMScarecrow.needSleepSpawn = true
 GMScarecrow.spawnWeight = 10
-
+GMScarecrow.meanness = 5
+GMScarecrow.initMeanness = 5
 GMScarecrow.MannequinList = {}
 GMScarecrow.ScanDistance = 2 -- in squares, thus block of sqr((2 * ScanDistance) + 1). E.g. sqr((2 * 2) + 1) = sqr(5) = 25
 GMScarecrow.SCRIPTS = {
@@ -23,10 +23,6 @@ GMScarecrow.SCRIPTS = {
   {31, "MannequinSkeleton01"}, -- 31%
   {41, "MannequinScarecrow01"} -- 41%
 }
-
--- Do nothing
-GMScarecrow.init = function()
-end
 
 -- Add object to Mannequin List if it is not already in the list
 -- param object should be an IsoMannequin
@@ -71,25 +67,9 @@ GMScarecrow.update = function(player)
     local pVector = Vector2.new(player:getX(), player:getY())
     for i = 1, #GMScarecrow.MannequinList do
       local scarecrow = GMScarecrow.MannequinList[i]
-      if scarecrow ~= nil then
-        local sVector = Vector2.new(scarecrow:getX(), scarecrow:getY())
-        local angle = sVector:angleTo(pVector)
-        if angle >= -0.3926990817 and angle < 0.3926990817 then -- [-22.5 to 22.5)
-          scarecrow:rotate(IsoDirections.E)
-        elseif angle >= 0.3926990817 and angle < 1.1780972451 then -- [22.5 to 67.5)
-          scarecrow:rotate(IsoDirections.SE)
-        elseif angle >= 1.1780972451 and angle < 1.9634954085 then -- [67.5 to 112.5)
-          scarecrow:rotate(IsoDirections.S)
-        elseif angle >= 1.9634954085 and angle < 2.7488935719 then -- [112.5 to 157.5)
-          scarecrow:rotate(IsoDirections.SW)
-        elseif angle >= -1.1780972451 and angle < -0.3926990817 then -- [-67.5 to -22.5)
-          scarecrow:rotate(IsoDirections.NE)
-        elseif angle >= -1.9634954085 and angle < -1.1780972451 then -- [-112.5 to -67.5)
-          scarecrow:rotate(IsoDirections.N)
-        elseif angle >= -2.7488935719 and angle < -1.9634954085 then -- [-157 to -112.5)
-          scarecrow:rotate(IsoDirections.NW)
-        else -- [22.5 to 67.5)
-          scarecrow:rotate(IsoDirections.W)
+      if scarecrow:getCell() == player:getCell() then
+        if scarecrow ~= nil then
+          scarecrow:rotate(getDirectionToPlayer2(scarecrow, pVector))
         end
       end
     end
@@ -173,8 +153,8 @@ function GMScarecrow.printMannequinList()
   if GMScarecrow.debug then
     print("GM Scarecrow: Mannequin List start")
     local count = 0
-    for i = 1, #GMSC.MannequinList do
-      local scarecrow = GMSC.MannequinList[i];
+    for i = 1, #GMScarecrow.MannequinList do
+      local scarecrow = GMScarecrow.MannequinList[i];
       if scarecrow ~= nil then 
         print("GM Scarecrow: Mannequin[" .. i .. "]: ", tostring(scarecrow))
         count = count + 1
@@ -185,4 +165,9 @@ function GMScarecrow.printMannequinList()
     print("GM Scarecrow: Mannequins in list: ", tostring(count))
     print("GM Scarecrow: Mannequin List end")
   end
+end
+
+function GMScarecrow.daily(insanityFactor)
+  local factor = 1/5
+  GMScarecrow.meanness = GMUtils.changeMeanness(insanityFactor, GMScarecrow.initMeanness, GMScarecrow.meanness, factor)
 end

@@ -1,8 +1,8 @@
 -- TODO LIST
 -- Creaking sound when door open or close
-require "GMUtils"
+-- forced wake up?
 
-GMDoors = {}
+GMDoors = GMDoors or {}
 GMDoors.debug = false
 
 GMDoors.needScan = false
@@ -10,6 +10,8 @@ GMDoors.needOnSeeNewRoom = false
 GMDoors.needUpdate = false
 GMDoors.needSleepSpawn = true
 GMDoors.spawnWeight = 10
+GMDoors.meanness = 5
+GMDoors.initMeanness = 5
 
 GMDoors.DOOR_ACTION_IF_CLOSED = { 
   {10, "LOCK"}, -- 10% chance of locking a closed door
@@ -28,7 +30,11 @@ GMDoors.WINDOW_ACTION_IF_CLOSED = {
 }
 
 -- Do nothing
-GMCorpse.init = function()
+GMDoors.init = function()
+end
+
+GMDoors.getSound = function()
+  return nil
 end
 
 function GMDoors.rummageForFirstKeyId(itemContainer)
@@ -199,4 +205,11 @@ GMDoors.spawn = function(player)
   else
     if GMDoors.debug then print("GM Doors: Player is not in a room or vehicle") end 
   end
+  --change stats
+  GMSanity.updateStats(player, GMDoors.meanness, 10)
+end
+
+function GMDoors.daily(insanityFactor)
+  local factor = 0.5/5
+  GMDoors.meanness = GMUtils.changeMeanness(insanityFactor, GMDoors.initMeanness, GMDoors.meanness, factor)
 end

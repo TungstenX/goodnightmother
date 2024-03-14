@@ -6,9 +6,14 @@ GMSleepWalker.needOnSeeNewRoom = false
 GMSleepWalker.needUpdate = false
 GMSleepWalker.needSleepSpawn = true
 GMSleepWalker.spawnWeight = 10
-
+GMSleepWalker.meanness = 4
+GMSleepWalker.initMeanness = 4
 -- Do nothing
 GMSleepWalker.init = function()
+end
+
+GMSleepWalker.getSound = function()
+  return nil
 end
 
 -- Get random room def
@@ -74,4 +79,9 @@ GMSleepWalker.spawn = function(player)
       end        
     end
   end
+end
+
+function GMSleepWalker.daily(insanityFactor)
+  local factor = 0.5/5
+  GMSleepWalker.meanness = GMUtils.changeMeanness(insanityFactor, GMSleepWalker.initMeanness, GMSleepWalker.meanness, factor)
 end

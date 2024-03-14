@@ -45,3 +45,107 @@ sound GMMommyRadio {
     volume = 1.0, 
   } 
 }
+
+sound GMPol0 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMPol0.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+sound GMPol1 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMPol1.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+
+sound GMPolMove0 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMPolMove0.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+sound GMPolMove1 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMPolMove1.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+sound GMPolMove2 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMPolMove2.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+sound GMPolMove3 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMPolMove3.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+
+sound GMPolRum0 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMPolRum0.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+sound GMPolRum1 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMPolRum1.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+
+sound GMNightRoom0 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMNightRoom0.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+

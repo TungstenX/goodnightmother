@@ -1,0 +1,36 @@
+UI_EN = {
+    UI_GM_Corpse_Enable = "Corpse enabled",
+    UI_GM_Corpse_Enable_Tooltip = "Wake up with a corpse in your bed",
+    UI_GM_Corpse_Meanness = "Corpse probability",
+    
+    UI_GM_Devices_Enable = "Devices enabled",
+    UI_GM_Devices_Enable_Tooltip = "Cursed devices",
+    UI_GM_Devices_Meanness = "Device cursedness",
+    UI_GM_Devices_Meanness_Tooltip = "Cursedness: 0 low - 9 high. The more cursed, the more you'll freak out",
+    
+    UI_GM_Naked_Enable = "Naked enabled",
+    UI_GM_Naked_Enable_Tooltip = "Wake up naked",
+    UI_GM_Naked_Meanness = "Naked probability",
+    
+    UI_GM_NNoises_Enable = "Night noises enabled",
+    UI_GM_NNoises_Enable_Tooltip = "Things that go bump in the night",
+    UI_GM_NNoises_Meanness = "Night noises probability",
+    UI_GM_NNoises_Meanness_Tooltip = "Probability: 0 often - 9 rarely. The rarer, the more you'll freak out",        
+    
+    UI_GM_Poltergeists_Enable = "Poltergeists enabled",
+    UI_GM_Poltergeists_Enable_Tooltip = "Those little jerks that messes with things while you sleep",
+    UI_GM_Poltergeists_Meanness = "Poltergeists probability",           
+    
+    UI_GM_Scarecrow_Enable = "Scarecrow enabled",
+    UI_GM_Scarecrow_Enable_Tooltip = "They are lonely out there",
+    UI_GM_Scarecrow_Meanness = "Scarecrow probability",          
+    
+    UI_GM_SleepWalker_Enable = "Sleep walking enabled",
+    UI_GM_SleepWalker_Enable_Tooltip = "Trying to run away from your own nightmares",
+    UI_GM_SleepWalker_Enable_Meanness = "Sleep walking probability",   
+    
+    UI_GM_Meanness_Tooltip = "Probability: 0 often - 9 rarely",
+    
+    UI_GM_Insanity_Factor = "Insanity factor",
+    UI_GM_Insanity_Factor_Tooltip = "Insanity factor: 0 no change - 9 very quickly. How quickly things will go completely insane"
+}

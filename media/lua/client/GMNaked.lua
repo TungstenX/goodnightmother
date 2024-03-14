@@ -1,15 +1,15 @@
-GMNaked = {}
-GMNaked.debug = false
+-- TODO LIST
+-- forced wake up?
 
+GMNaked = GMNaked or {}
+GMNaked.debug = false
 GMNaked.needScan = false
 GMNaked.needOnSeeNewRoom = false
 GMNaked.needUpdate = false
 GMNaked.needSleepSpawn = true
 GMNaked.spawnWeight = 10
-
--- Do nothing
-GMNaked.init = function()
-end
+GMNaked.meanness = 2
+GMNaked.initMeanness = 2
 
 function GMNaked.rummage(currentSquare, itemContainer)
   if itemContainer then
@@ -32,14 +32,32 @@ function GMNaked.rummage(currentSquare, itemContainer)
   end
 end
 
+GMNaked.unspawn = function(player)
+  GMSanity.updateStats(player, GMNaked.meanness, 10)
+end
+
 -- Remove all items from the player
 -- Be nice, ah, check for isFavorite()
 GMNaked.spawn = function(player)
-  local x, y, z = player:getX(), player:getY(), player:getZ()
-  x = x + ZombRand(-2, 3)
-  y = y + ZombRand(-2, 3)
+  local currentSquare = nil
+  local roomDef = player:getCurrentRoomDef()
+  if roomDef then
+    local isoRoom = roomDef:getIsoRoom()
+    if isoRoom then
+      currentSquare = isoRoom:getRandomFreeSquare()
+      if not currentSquare then
+        currentSquare = isoRoom:getRandomSquare()
+      end
+    end
+  end
+  if not currentSquare then
+    local x, y, z = player:getX(), player:getY(), player:getZ()
+    x = x + ZombRand(-2, 3)
+    y = y + ZombRand(-2, 3)
+    currentSquare = getSquare(x, y, z) 
+  end
+  
   local container = player:getInventory()
-  local currentSquare = getSquare(x, y, z) 
   
   -- Drop items in player's hands
   player:dropHandItems()
@@ -91,4 +109,9 @@ GMNaked.spawn = function(player)
   -- Dropping all non-favorite items to the floor
   GMNaked.rummage(currentSquare, container)
   if GMNaked.debug then print('GM Nake: End items count: ', container:getItems():size()) end
+end
+
+function GMNaked.daily(insanityFactor)
+  local factor = 0.75/5
+  GMNaked.meanness = GMUtils.changeMeanness(insanityFactor, GMNaked.initMeanness, GMNaked.meanness, factor)
 end
