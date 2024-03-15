@@ -4,7 +4,7 @@
 
 GMDoors = GMDoors or {}
 GMDoors.debug = false
-
+GMDoors.name = "Doors"
 GMDoors.needScan = false
 GMDoors.needOnSeeNewRoom = false
 GMDoors.needUpdate = false

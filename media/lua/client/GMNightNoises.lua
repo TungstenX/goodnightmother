@@ -3,6 +3,7 @@
 
 GMNightNoises = GMNightNoises or {}
 GMNightNoises.debug = false
+GMNightNoises.name = "Night Noises"
 GMNightNoises.needScan = false
 GMNightNoises.needOnSeeNewRoom = false
 GMNightNoises.needUpdate = false

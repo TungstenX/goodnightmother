@@ -33,8 +33,8 @@ if ModOptions and ModOptions.getInstance then
     GM.Options.nightNoisesEnabled = optionValues.settings.options.nightNoisesEnabled
     GM.Options.nightNoisesMeanness = meannessValues[optionValues.settings.options.nightNoisesMeanness]
     
-    GM.Options.poltergeistsEnabled = optionValues.settings.options.nightNoisesEnabled
-    GM.Options.poltergeistsMeanness = meannessValues[optionValues.settings.options.nightNoisesMeanness]
+    GM.Options.poltergeistsEnabled = optionValues.settings.options.poltergeistsEnabled
+    GM.Options.poltergeistsMeanness = meannessValues[optionValues.settings.options.poltergeistsMeanness]
         
     GM.Options.scarecrowEnabled = optionValues.settings.options.scarecrowEnabled
     GM.Options.scarecrowMeanness = meannessValues[optionValues.settings.options.scarecrowMeanness]
@@ -53,12 +53,12 @@ if ModOptions and ModOptions.getInstance then
         default = true,
         OnApplyMainMenu = onModOptionsApply,
         OnApplyInGame = onModOptionsApply,
-      }
+      },
       corpsMeanness = {
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
         name = "UI_GM_Corpse_Meanness",
         tooltip = "UI_GM_Meanness_Tooltip",
-        default = 1,
+        default = 2,
         OnApplyMainMenu = onModOptionsApply,
         OnApplyInGame = onModOptionsApply,
       },
@@ -69,7 +69,7 @@ if ModOptions and ModOptions.getInstance then
         default = true,
         OnApplyMainMenu = onModOptionsApply,
         OnApplyInGame = onModOptionsApply,
-      }
+      },
       devicesMeanness = {
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
         name = "UI_GM_Devices_Meanness",
@@ -85,12 +85,12 @@ if ModOptions and ModOptions.getInstance then
         default = true,
         OnApplyMainMenu = onModOptionsApply,
         OnApplyInGame = onModOptionsApply,
-      }
+      },
       nakedMeanness = {
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
         name = "UI_GM_Naked_Meanness",
         tooltip = "UI_GM_Meanness_Tooltip",
-        default = 1,
+        default = 3,
         OnApplyMainMenu = onModOptionsApply,
         OnApplyInGame = onModOptionsApply,
       },
@@ -101,12 +101,12 @@ if ModOptions and ModOptions.getInstance then
         default = true,
         OnApplyMainMenu = onModOptionsApply,
         OnApplyInGame = onModOptionsApply,
-      }
+      },
       nightNoisesMeanness = {
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
         name = "UI_GM_NNoises_Meanness",
         tooltip = "UI_GM_NNoises_Meanness_Tooltip",
-        default = 0,
+        default = 1,
         OnApplyMainMenu = onModOptionsApply,
         OnApplyInGame = onModOptionsApply,
       },
@@ -117,12 +117,12 @@ if ModOptions and ModOptions.getInstance then
         default = true,
         OnApplyMainMenu = onModOptionsApply,
         OnApplyInGame = onModOptionsApply,
-      }
+      },
       poltergeistsMeanness = {
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
         name = "UI_GM_Poltergeists_Meanness",
         tooltip = "UI_GM_Meanness_Tooltip",
-        default = 7,
+        default = 8,
         OnApplyMainMenu = onModOptionsApply,
         OnApplyInGame = onModOptionsApply,
       },
@@ -133,12 +133,12 @@ if ModOptions and ModOptions.getInstance then
         default = true,
         OnApplyMainMenu = onModOptionsApply,
         OnApplyInGame = onModOptionsApply,
-      }
+      },
       scarecrowMeanness = {
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
         name = "UI_GM_Scarecrow_Meanness",
         tooltip = "UI_GM_Meanness_Tooltip",
-        default = 5,
+        default = 6,
         OnApplyMainMenu = onModOptionsApply,
         OnApplyInGame = onModOptionsApply,
       },
@@ -149,12 +149,12 @@ if ModOptions and ModOptions.getInstance then
         default = true,
         OnApplyMainMenu = onModOptionsApply,
         OnApplyInGame = onModOptionsApply,
-      }
+      },
       sleepWalkerMeanness = {
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
         name = "UI_GM_SleepWalker_Meanness",
         tooltip = "UI_GM_Meanness_Tooltip",
-        default = 4,
+        default = 5,
         OnApplyMainMenu = onModOptionsApply,
         OnApplyInGame = onModOptionsApply,
       },      
@@ -163,7 +163,7 @@ if ModOptions and ModOptions.getInstance then
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
         name = "UI_GM_Insanity_Factor",
         tooltip = "UI_GM_Insanity_Factor_Tooltip",
-        default = 4,
+        default = 5,
         OnApplyMainMenu = onModOptionsApply,
         OnApplyInGame = onModOptionsApply,
       },

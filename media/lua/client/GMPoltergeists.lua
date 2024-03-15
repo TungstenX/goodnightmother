@@ -8,6 +8,7 @@ require "GMUtils"
 
 GMPoltergeists = {}
 GMPoltergeists.debug = false
+GMPoltergeists.name = "Poltergeists"
 GMPoltergeists.needScan = false
 GMPoltergeists.needOnSeeNewRoom = false
 GMPoltergeists.needUpdate = false

@@ -3,6 +3,7 @@
 
 GMNaked = GMNaked or {}
 GMNaked.debug = false
+GMNaked.name = "Naked"
 GMNaked.needScan = false
 GMNaked.needOnSeeNewRoom = false
 GMNaked.needUpdate = false

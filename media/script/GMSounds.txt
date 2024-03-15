@@ -136,6 +136,17 @@ sound GMPolRum1 {
     volume = 1.0, 
   } 
 }
+sound GMPolRum2 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMPolRum2.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
 
 sound GMNightRoom0 {
   category = EHE: Main, 
@@ -143,6 +154,105 @@ sound GMNightRoom0 {
   is3D = true,
   clip { 
     file = media/sound/GMNightRoom0.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+sound GMNightRoom1 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMNightRoom1.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+sound GMNightRoom2 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMNightRoom2.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+sound GMNightRoom3 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMNightRoom3.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+sound GMNightRoom4 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMNightRoom4.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+sound GMNightRoom5 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMNightRoom5.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+sound GMNightRoom6 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMNightRoom6.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+sound GMNightRoom7 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMNightRoom7.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+sound GMNightRoom8 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMNightRoom8.ogg,
+    distanceMax = 0.0, 
+    reverbFactor = 0.1, 
+    volume = 1.0, 
+  } 
+}
+sound GMNightRoom9 {
+  category = EHE: Main, 
+  loop = false, 
+  is3D = true,
+  clip { 
+    file = media/sound/GMNightRoom9.ogg,
     distanceMax = 0.0, 
     reverbFactor = 0.1, 
     volume = 1.0, 

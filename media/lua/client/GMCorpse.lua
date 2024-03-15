@@ -3,6 +3,7 @@
 -- How to react for Sleep inARoom, vehicle, Tent etc
 
 GMCorpse = GMCorpse or {}
+GMCorpse.name = "Corpse"
 GMCorpse.debug = false
 GMCorpse.needScan = false
 GMCorpse.needOnSeeNewRoom = false

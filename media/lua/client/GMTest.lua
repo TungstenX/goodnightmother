@@ -19,8 +19,9 @@ function Test1MenuEntry()
   --}
   
   local startTime = 0--os.clock()
-  GMCorpse.spawn(player)
-  GMCorpse.unspawn(player)
+  --forSleepSpawn = {}
+  --GMUtils.debug = true
+  --GMUtils.reweight(forSleepSpawn)
   local endTime = 0--os.clock()
   
   print(string.format("GM test 1: End, Duration: %.3f", (endTime - startTime))) 

@@ -5,6 +5,7 @@
 
 GMTV = {}
 GMTV.debug = false
+GMTV.name = "TV"
 GMTV.needScan = true
 GMTV.needOnSeeNewRoom = true
 GMTV.needUpdate = true
@@ -23,7 +24,7 @@ GMTV.update = function(player)
     if GMTV.debug then print("GM TV: Still scanning") end
     return
   end
-  if GMTV.debug then print("GM TV: GMTV.tvList: ", GMTV.tvList) end
+  --if GMTV.debug then print("GM TV: GMTV.tvList: ", GMTV.tvList) end
   for i = 1, #GMTV.tvList do
     local tv = GMTV.tvList[i]
     if tv:getCell() == player:getCell() then
@@ -33,10 +34,10 @@ GMTV.update = function(player)
       if tv:isFacing(player) and tv:getModData() and tv:getModData().GMTV then      
         --Just for testing
         local deviceData = tv:getDeviceData()
-        if GMTV.debug then print("GM TV: deviceData: canBePoweredHere: ", deviceData:canBePoweredHere()) end
-        if GMTV.debug then print("GM TV: deviceData: getIsTelevision:  ", deviceData:getIsTelevision()) end
-        if GMTV.debug then print("GM TV: deviceData: getIsTurnedOn:    ", deviceData:getIsTurnedOn()) end   
-        if GMTV.debug then print("GM TV: deviceData: getPower:         ", tostring(deviceData:getPower())) end
+        --if GMTV.debug then print("GM TV: deviceData: canBePoweredHere: ", deviceData:canBePoweredHere()) end
+        --if GMTV.debug then print("GM TV: deviceData: getIsTelevision:  ", deviceData:getIsTelevision()) end
+        --if GMTV.debug then print("GM TV: deviceData: getIsTurnedOn:    ", deviceData:getIsTurnedOn()) end   
+        --if GMTV.debug then print("GM TV: deviceData: getPower:         ", tostring(deviceData:getPower())) end
         if not tv:getModData().GMTV.spawned then  
           local x, y, z = tv:getSquare():getX(), tv:getSquare():getY(), tv:getSquare():getZ()
           GMTV.spawnSamara(x, y, z)
@@ -49,7 +50,7 @@ GMTV.update = function(player)
   end
   for i = 1, #GMTV.radioList do
     local radio = GMTV.radioList[i]
-    if radio:getCell() == player:getCell then
+    if radio:getCell() == player:getCell() then
       if not radio:getModData().GMTV.spawned and radio:HasPlayerInRange() then
         tv:getModData().GMTV.spawned = true
         GMTV.sound = getSoundManager():PlayWorldSound("GMMommyRadio", false, square, 0.2, 60, 0.5, false);
@@ -218,7 +219,7 @@ function GMTV.scanFor(square, firstScan)
   GMTV.scanning = false
 end
 
-GMTV.forOnSeeNewRoom = function(isoRoom)
+GMTV.onSeeNewRoom = function(isoRoom)
   if isoRoom then
     if GMTV.debug then print("GM TV: room ", isoRoom:getName()) end
     local squares = isoRoom:getSquares()

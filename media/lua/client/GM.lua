@@ -20,8 +20,6 @@
 --                = 9 - Spawn Samara when player face TV (once per device)
 
 -- Meannes translated to spawnWeight
--- Formula spawnWeight = 100 / ((Meannes + 1) * 1.4
--- Not GMTV will not happen randomly
 
 require "GMUtils"
 require "GMCorpse"
@@ -34,7 +32,7 @@ require "GMPoltergeists"
 require "GMTV"
 
 GM = GM or {}
-GM.debug = false
+GM.debug = true
 GM.nightmares = {}
 GM.forScan = {}
 GM.forOnSeeNewRoom = {}
@@ -81,9 +79,9 @@ function GM.init()
     table.insert(GM.nightmares, GMPoltergeists)
   end
   if GM.Options.scarecrowEnabled then
-    GMScareCrow.initMeanness = GM.Options.scarecrowMeanness
-    GMScareCrow.meanness = GM.Options.scarecrowMeanness
-    table.insert(GM.nightmares, GMScareCrow)
+    GMScarecrow.initMeanness = GM.Options.scarecrowMeanness
+    GMScarecrow.meanness = GM.Options.scarecrowMeanness
+    table.insert(GM.nightmares, GMScarecrow)
   end
   if GM.Options.sleepWalkerEnabled then
     GMSleepWalker.initMeanness = GM.Options.sleepWalkerMeanness
@@ -93,6 +91,7 @@ function GM.init()
   
   for i = 1, #GM.nightmares do
     local nightmare = GM.nightmares[i]
+    nightmare.debug = GM.debug
     if nightmare.init then
       nightmare.init()
     end
@@ -110,6 +109,7 @@ function GM.init()
     end
   end
   GMUtils.debug = GM.debug
+  GMSanity.debug = GM.debug
   GMUtils.reweight(GM.forSleepSpawn)  
   for i = 0, GM.daysRunning - 1, 1 do
     GM.doDaily()
@@ -118,7 +118,7 @@ end
 Events.OnGameStart.Add(GM.init)
 
 function doSquareScan(x, y, z)
-  local square = getCell():getGridSquare(x, y, player:getZ())
+  local square = getCell():getGridSquare(x, y, z)
   for i = 1, #GM.forScan do
     local nightmare = GM.forScan[i]
     if nightmare.addFromSquare then
@@ -179,7 +179,8 @@ Events.OnPlayerUpdate.Add(GM.update)
 
 function GM.sleepNightmareGenerator(player)
   --Stop current wake nightmare, if there is one
-  local nightmare = GMUtils.weightedRandom(forSleepSpawn)    
+  local nightmare = GMUtils.weightedRandom(GM.forSleepSpawn)
+  if GM.debug then print("GM Sleep nightmare to be spawned: ", nightmare.name) end
   if nightmare.spawn then
     local sound = nil
     if nightmare.getSound then

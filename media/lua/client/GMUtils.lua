@@ -1,4 +1,4 @@
-GMUtils = {}
+GMUtils = GMUtils or {}
 GMUtils.debug = false
 
 -- Picked a weighted random entry from the supplied pool
@@ -29,8 +29,10 @@ end
 function GMUtils.reweight(pool)
   for k,v in pairs(pool) do
     local old = v[1]
+    local meanness = tonumber(v[2].meanness)
+    if GMUtils.debug then print("GM Utils: reweight v[2] = ", meanness) end
     v[1] = math.ceil(100.0 / ((v[2].meanness + 1.0) * 1.4))
-    if GMUtils.debug then print("GM reweight: weight from " .. tostring(old) .. " to " .. tostring(v[1])) end
+    if GMUtils.debug then print("GM Utils: reweight: weight from " .. tostring(old) .. " to " .. tostring(v[1])) end
   end
 end
 

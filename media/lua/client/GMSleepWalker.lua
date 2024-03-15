@@ -1,6 +1,10 @@
+-- TODO LIST
+-- Do walking sounds?
+-- In vehicle and in tent?
 
-GMSleepWalker = {}
+GMSleepWalker = GMSleepWalker or {}
 GMSleepWalker.debug = false
+GMSleepWalker.name = "Sleep Walker"
 GMSleepWalker.needScan = false
 GMSleepWalker.needOnSeeNewRoom = false
 GMSleepWalker.needUpdate = false
@@ -8,13 +12,6 @@ GMSleepWalker.needSleepSpawn = true
 GMSleepWalker.spawnWeight = 10
 GMSleepWalker.meanness = 4
 GMSleepWalker.initMeanness = 4
--- Do nothing
-GMSleepWalker.init = function()
-end
-
-GMSleepWalker.getSound = function()
-  return nil
-end
 
 -- Get random room def
 function GMSleepWalker.getRandomRoomDef(building, notId, triesRef)
@@ -45,8 +42,6 @@ function GMSleepWalker.getRandomRoomDef(building, notId, triesRef)
 end
 
 -- Move player to other room in the same building
--- Keeping with the naming convention
--- TODO: in vehicle and in tent?
 GMSleepWalker.spawn = function(player)
   local otherRoomDef = nil
   if player:isInARoom() then
@@ -66,15 +61,15 @@ GMSleepWalker.spawn = function(player)
     -- Lets see if we can SleepWalk (teleport) player to another room
     if otherRoomDef ~= nil then
       if GMSleepWalker.debug then print("GM SleepWalker: Trying to sleep walk to new room id ", otherRoomDef:getID() or 'nil') end
-      local freeSquare = otherRoomDef:getFreeSquare()
+      local isoRoom = otherRoomDef:getIsoRoom()      
+      local freeSquare = isoRoom:getRandomFreeSquare()
+      if freeSquare == nil then
+        freeSquare = isoRoom:getRandomSquare()
+      end      
       if freeSquare ~= nil then
-        -- start foot steps
-        --ISMoveableDefinitions.playSound(player, "Walk", true)
         player:setX(freeSquare:getX())
         player:setY(freeSquare:getY())
-        player:setZ(freeSquare:getZ())
-        -- end foot steps
-        --ISMoveableDefinitions.playSound(player, "Walk", true)        
+        player:setZ(freeSquare:getZ())     
         if GMSleepWalker.debug then print("GM SleepWalker: Sleep walked to new room (" .. freeSquare:getX() .. ", " .. freeSquare:getY() .. ", " .. freeSquare:getZ() .. ")") end
       end        
     end

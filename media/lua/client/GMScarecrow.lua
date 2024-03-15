@@ -5,7 +5,7 @@
 
 GMScarecrow = GMScarecrow or {}
 GMScarecrow.debug = false
-
+GMScarecrow.name = "Scarecrow"
 GMScarecrow.needScan = true
 GMScarecrow.needOnSeeNewRoom = false
 GMScarecrow.needUpdate = true

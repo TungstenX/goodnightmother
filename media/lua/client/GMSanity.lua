@@ -1,4 +1,5 @@
 GMSanity = GMSanity or {}
+GMSanity.debug = false
 
 GMSanity.stressFactor = function(meanness)
   return 1.0 / (meanness + (2 * (10 - meanness) - 7)) * 6
