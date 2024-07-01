@@ -145,10 +145,55 @@ function everyTenMinutes()
   player:getStats():setMorale(player:getStats():getMorale() - (meanness / 360.0))
 end
 
+function lightOn(x, y, z, radius, r, g, b)
+  print("lightOn: ", tostring(x), tostring(y), tostring(z), tostring(radius), tostring(r), tostring(g), tostring(b))
+  for var2 = x - radius, x + radius, 1 do
+    for var3 = y - radius, y + radius, 1 do
+      for var4 = 1, 7, 1 do
+        local var1 = getCell():getGridSquare(var2, var3, var4)
+        if var1 ~= nil then
+          local var5 = LosUtil.lineClear(var1:getCell(), x, y, z, var1:getX(), var1:getY(), var1:getZ(), false)
+          if var1:getX() == x and var1:getY() == y and var1:getZ() == z or tostring(var5) ~= "Blocked" then
+            local var6 = 0.0
+            local var7 = 0.0 --??
+            if math.abs(var1:getZ() - z) <= 1 then
+              var7 = IsoUtils.DistanceTo(x, y, 0.0, var1:getX(), var1:getY(), 0.0)
+            else 
+              var7 = IsoUtils.DistanceTo(x, y, z, var1:getX(), var1:getY(), var1:getZ())
+            end
+            if var7 <= radius then
+              var6 = var7 / radius
+              var6 = 1.0 - var6
+              var6 = var6 * var6
+              --Not doing the life reduction thingy
+              --if (this.life > -1) {
+              --  var6 *= (float)this.life / (float)this.startlife;
+              --}
+              local var8 = var6 * r * 2.0
+              local var9 = var6 * g * 2.0
+              local var10 = var6 * b * 2.0
+              var1:setLampostTotalR(1.0) --var1:getLampostTotalR() + var8)
+              var1:setLampostTotalG(1.0) --var1:getLampostTotalG() + var9)
+              var1:setLampostTotalB(1.0) --var1:getLampostTotalB() + var10)
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
 function Test5MenuEntry()
   print("GM test 5 start")
-  Events.EveryTenMinutes.Remove(everyTenMinutes)
-  Events.EveryTenMinutes.Add(everyTenMinutes)
+  --Events.EveryTenMinutes.Remove(everyTenMinutes)
+  --Events.EveryTenMinutes.Add(everyTenMinutes)
+  print("getStartTimeOfDay: ", tostring(GameTime.getInstance():getStartTimeOfDay()))
+  print("getTimeOfDay: ", tostring(GameTime.getInstance():getTimeOfDay()))
+  print("getNight: ", tostring(GameTime.getInstance():getNight()))
+  print("getAmbientMax: ", tostring(GameTime.getInstance():getAmbientMax()))
+  
+  print("getDawn: ", tostring(GameTime.getInstance():getDawn()))
+  print("getDusk: ", tostring(GameTime.getInstance():getDusk()))
   print("GM test 5 end")
 end
 

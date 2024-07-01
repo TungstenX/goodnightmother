@@ -1,3 +1,13 @@
+-- ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐                                                                                                     
+-- │ _/_/_/_/_/  _/    _/  _/      _/    _/_/_/    _/_/_/  _/_/_/_/_/  _/_/_/_/  _/      _/  _/      _/ │    
+-- │    _/      _/    _/  _/_/    _/  _/        _/            _/      _/        _/_/    _/    _/  _/    │   
+-- │   _/      _/    _/  _/  _/  _/  _/  _/_/    _/_/        _/      _/_/_/    _/  _/  _/      _/       │   
+-- │  _/      _/    _/  _/    _/_/  _/    _/        _/      _/      _/        _/    _/_/    _/  _/      │   
+-- │ _/        _/_/    _/      _/    _/_/_/  _/_/_/        _/      _/_/_/_/  _/      _/  _/      _/     │   
+-- ├────────────────────────────────────────────────────────────────────────────────────────────────────┤
+-- │ © Copyright 2024                                                                                   │ 
+-- └────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
 -- TODO LIST
 -- Unspawn scarecrow after x amount of time?
 -- Effect when unspawning
@@ -67,10 +77,11 @@ GMScarecrow.update = function(player)
     local pVector = Vector2.new(player:getX(), player:getY())
     for i = 1, #GMScarecrow.MannequinList do
       local scarecrow = GMScarecrow.MannequinList[i]
-      if scarecrow:getCell() == player:getCell() then
-        if scarecrow ~= nil then
-          scarecrow:rotate(getDirectionToPlayer2(scarecrow, pVector))
-        end
+      if scarecrow ~= nil and scarecrow:getCell() == player:getCell() then
+        --print("scarecrow: ", tostring(scarecrow))
+        --print("pVector:   ", tostring(pVector))
+        --local r = GMUtils.getDirectionToPlayer2(scarecrow, pVector)
+        scarecrow:rotate(GMUtils.getDirectionToPlayer2(scarecrow, pVector))
       end
     end
   end

@@ -1,3 +1,13 @@
+-- ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐                                                                                                     
+-- │ _/_/_/_/_/  _/    _/  _/      _/    _/_/_/    _/_/_/  _/_/_/_/_/  _/_/_/_/  _/      _/  _/      _/ │    
+-- │    _/      _/    _/  _/_/    _/  _/        _/            _/      _/        _/_/    _/    _/  _/    │   
+-- │   _/      _/    _/  _/  _/  _/  _/  _/_/    _/_/        _/      _/_/_/    _/  _/  _/      _/       │   
+-- │  _/      _/    _/  _/    _/_/  _/    _/        _/      _/      _/        _/    _/_/    _/  _/      │   
+-- │ _/        _/_/    _/      _/    _/_/_/  _/_/_/        _/      _/_/_/_/  _/      _/  _/      _/     │   
+-- ├────────────────────────────────────────────────────────────────────────────────────────────────────┤
+-- │ © Copyright 2024                                                                                   │ 
+-- └────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
 GM = GM or {}
 GM.Options = GM.Options or {}
 
@@ -11,10 +21,15 @@ GM.Options.nightNoisesEnabled = true
 GM.Options.nightNoisesMeanness = 0
 GM.Options.poltergeistsEnabled = true
 GM.Options.poltergeistsMeanness = 7
+GM.Options.puppetMasterEnable = true
+GM.Options.puppetMasterMeanness = 7
 GM.Options.scarecrowEnabled = true
 GM.Options.scarecrowMeanness = 5
 GM.Options.sleepWalkerEnabled = true
 GM.Options.sleepWalkerMeanness = 4
+GM.Options.lightsEnabled = true
+GM.Options.lightsMeanness = 9
+
 GM.Options.insanityFactor = 5
 
 if ModOptions and ModOptions.getInstance then
@@ -35,12 +50,18 @@ if ModOptions and ModOptions.getInstance then
     
     GM.Options.poltergeistsEnabled = optionValues.settings.options.poltergeistsEnabled
     GM.Options.poltergeistsMeanness = meannessValues[optionValues.settings.options.poltergeistsMeanness]
+    
+    GM.Options.puppetMasterEnabled = optionValues.settings.options.puppetMasterEnabled
+    GM.Options.puppetMasterMeanness = meannessValues[optionValues.settings.options.puppetMasterMeanness]
         
     GM.Options.scarecrowEnabled = optionValues.settings.options.scarecrowEnabled
     GM.Options.scarecrowMeanness = meannessValues[optionValues.settings.options.scarecrowMeanness]
     
     GM.Options.sleepWalkerEnabled = optionValues.settings.options.sleepWalkerEnabled
     GM.Options.sleepWalkerMeanness = meannessValues[optionValues.settings.options.sleepWalkerMeanness]    
+    
+    GM.Options.lightsEnabled = optionValues.settings.options.lightsEnabled
+    GM.Options.lightsMeanness = meannessValues[optionValues.settings.options.lightsMeanness]    
     
     GM.Options.insanityFactor = meannessValues[optionValues.settings.options.insanityFactor]    
   end
@@ -127,6 +148,22 @@ if ModOptions and ModOptions.getInstance then
         OnApplyInGame = onModOptionsApply,
       },
       
+      puppetMasterEnabled = {
+        name = "UI_GM_PuppetMaster_Enable",
+        tooltip = "UI_GM_PuppetMaster_Enable_Tooltip",
+        default = true,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      },
+      puppetMasterMeanness = {
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        name = "UI_GM_PuppetMaster_Meanness",
+        tooltip = "UI_GM_Meanness_Tooltip",
+        default = 8,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      },
+      
       scarecrowEnabled = {
         name = "UI_GM_Scarecrow_Enable",
         tooltip = "UI_GM_Scarecrow_Enable_Tooltip",
@@ -158,6 +195,22 @@ if ModOptions and ModOptions.getInstance then
         OnApplyMainMenu = onModOptionsApply,
         OnApplyInGame = onModOptionsApply,
       },      
+      
+      lightsEnabled = {
+        name = "UI_GM_Lights_Enable",
+        tooltip = "UI_GM_Lights_Enable_Tooltip",
+        default = true,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      },
+      lightsMeanness = {
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        name = "UI_GM_Lights_Meanness",
+        tooltip = "UI_GM_Lights_Meanness_Tooltip",
+        default = 9,
+        OnApplyMainMenu = onModOptionsApply,
+        OnApplyInGame = onModOptionsApply,
+      },   
       
       insanityFactor = {
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",

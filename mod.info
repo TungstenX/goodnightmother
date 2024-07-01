@@ -1,8 +1,9 @@
 name=Goodnight Mother
 poster=poster_2.png
-description=THIS IS HOW YOU WENT INSANE
-id=GoodnightMother
-modversion=0.11
+description=THIS IS HOW YOU WENT INSANE<LINE><LINE>
+description=As the paranormal realm continues to deliberate on how to deal with the half-attached zombie spirits, the entities within that realm are now concentrating their efforts on the humans who remain. And yes, that includes you!
+id=3184804824
+modversion=1.13
 authors=TungstenX
 versionMin=41.56
 pzversion=41.56

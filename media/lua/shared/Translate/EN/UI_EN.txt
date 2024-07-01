@@ -21,13 +21,22 @@ UI_EN = {
     UI_GM_Poltergeists_Enable_Tooltip = "Those little jerks that messes with things while you sleep",
     UI_GM_Poltergeists_Meanness = "Poltergeists probability",           
     
+    UI_GM_PuppetMaster_Enable = "Altered zombie behaviour enabled",
+    UI_GM_PuppetMaster_Enable_Tooltip = "Are you ok, Mr Zombie?",
+    UI_GM_PuppetMaster_Meanness = "Altered zombie behaviour probability", 
+    
     UI_GM_Scarecrow_Enable = "Scarecrow enabled",
     UI_GM_Scarecrow_Enable_Tooltip = "They are lonely out there",
     UI_GM_Scarecrow_Meanness = "Scarecrow probability",          
     
     UI_GM_SleepWalker_Enable = "Sleep walking enabled",
     UI_GM_SleepWalker_Enable_Tooltip = "Trying to run away from your own nightmares",
-    UI_GM_SleepWalker_Enable_Meanness = "Sleep walking probability",   
+    UI_GM_SleepWalker_Meanness = "Sleep walking probability",   
+    
+    UI_GM_Lights_Enable = "Freaky lights enabled",
+    UI_GM_Lights_Enable_Tooltip = "What's up with the lights?",
+    UI_GM_Lights_Meanness = "Freaky lights probability",   
+    UI_GM_Lights_Meanness_Tooltip = "Probability: 0 often - 9 rarely. The rarer, the more you'll freak out",        
     
     UI_GM_Meanness_Tooltip = "Probability: 0 often - 9 rarely",
     

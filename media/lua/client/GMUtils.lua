@@ -1,3 +1,13 @@
+-- ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐                                                                                                     
+-- │ _/_/_/_/_/  _/    _/  _/      _/    _/_/_/    _/_/_/  _/_/_/_/_/  _/_/_/_/  _/      _/  _/      _/ │    
+-- │    _/      _/    _/  _/_/    _/  _/        _/            _/      _/        _/_/    _/    _/  _/    │   
+-- │   _/      _/    _/  _/  _/  _/  _/  _/_/    _/_/        _/      _/_/_/    _/  _/  _/      _/       │   
+-- │  _/      _/    _/  _/    _/_/  _/    _/        _/      _/      _/        _/    _/_/    _/  _/      │   
+-- │ _/        _/_/    _/      _/    _/_/_/  _/_/_/        _/      _/_/_/_/  _/      _/  _/      _/     │   
+-- ├────────────────────────────────────────────────────────────────────────────────────────────────────┤
+-- │ © Copyright 2024                                                                                   │ 
+-- └────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
 GMUtils = GMUtils or {}
 GMUtils.debug = false
 
@@ -95,4 +105,28 @@ function GMUtils.changeMeanness(insanityFactor, initMeanness, meanness, factor)
     end
   end
   return meanness
+end
+
+function GMUtils.startsWith(needle, haystack)
+  if needle == nil or haystack == nil then
+    return false
+  end
+ return string.sub(haystack, 1, string.len(needle)) == needle
+end
+
+
+--- Transform a square position into a unique string
+---@param square IsoGridSquare
+---@return string
+function GMUtils.SquareToId(square)
+    return square:getX() .. "|" .. square:getY() .. "|" .. square:getZ()
+end
+
+--- Transform a position into a unique string
+---@param x number
+---@param y number
+---@param z number
+---@return string
+function GMUtils.PositionToId(x, y ,z)
+    return x .. "|" .. y .. "|" .. z
 end
